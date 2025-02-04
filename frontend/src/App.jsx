@@ -10,4 +10,12 @@ function App() {
   )
 }
 
+function Logout() {
+
+}
+
+function Register() {
+  
+}
+
 export default App
