@@ -1,13 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glowly</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #6a9cf7;
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        .post-container {
+            width: 60%;
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .post-content {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>Positive Social</header>
+    <div class="post-container">
+        <div class="profile">
+            <img src="https://via.placeholder.com/40" alt="Profile Picture">
+            <span>Mohammed Huzyfa</span>
+        </div>
+        <div class="post-content">
+            Today, I want to eat some food!
+        </div>
+    </div>
+    <div class="post-container">
+        <div class="profile">
+            <img src="https://via.placeholder.com/40" alt="Profile Picture">
+            <span>Jamal Skimtatota</span>
+        </div>
+        <div class="post-content">
+            Uh oh! I'm a few pounds of my weight goal!
+        </div>
+    </div>
+</body>
 </html>
