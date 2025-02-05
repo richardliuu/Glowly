@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
 from .serializers import PostSerializer, CommentSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post, Comment
@@ -70,6 +71,23 @@ class CommentDelete(generics.DestroyAPIView):
         user = self.request.user
         return Comment.objects.filter(author=user)
 
-class CommentLike(generics):
+class CommentLike(generics.UpdateAPIView):
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticated]
+
+    def update(self, request, args, **kwargs):
+        comment = self.get_object()
+        user = request.user
+
+        if user in comment.likes.all():
+            comment.likes.remove(user)
+            liked = False
+        else: 
+            comment.likes.add(user)
+            liked = True 
+
+        comment.save()
+        return Response({"liked": liked}, status=status.HTTP_200_OK)
+    
+

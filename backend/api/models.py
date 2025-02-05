@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User 
 from PIL import Image
 
-
 class Profile(models.Model):
     username = models.CharField(max_length=50)
     email = models.EmailField()
@@ -55,4 +54,4 @@ class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name = "likes")
 
     class Meta:
-        unique_like = ('user', 'post')
+        unique_together = ('user', 'post')
