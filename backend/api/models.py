@@ -8,6 +8,9 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to='avatars/')
     bio = models.TextField()
 
+# Like could be integrated into the database of the class 
+# like = models.ManyToManyField(User, blank=True)
+
     def save_picture(self, args, **kwargs):
         super().save(args, **kwargs)
 
@@ -45,6 +48,9 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     text = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
+    
+# Like could be integrated into the class    
+# likes = models.ManyToManyField(User, blank=True)
 
 class Notification(models.Model):
     pass
