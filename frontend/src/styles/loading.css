@@ -1,0 +1,14 @@
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: -vh;
+    /* background-color: black; <-- maybe, probably not */
+}
+
+.spinner {
+    width: -px; 
+    height: -px; /* -px is placeholder */
+    background: url("/spinner.gif")
+    
+}
