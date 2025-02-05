@@ -70,6 +70,6 @@ class CommentDelete(generics.DestroyAPIView):
         user = self.request.user
         return Comment.objects.filter(author=user)
 
-class CommentLike(generics):
+class CommentLike(generics.CreateAPIView):
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticated]
