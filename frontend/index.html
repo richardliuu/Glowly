@@ -7,66 +7,74 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3f8ff;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        header {
-            background-color: #6a9cf7;
-            width: 100%;
             text-align: center;
-            padding: 15px 0;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
+            margin: 50px;
         }
-        .post-container {
+        input {
             width: 60%;
-            background: white;
-            margin: 20px 0;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #5865F2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        .profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-        .post-content {
-            margin-top: 10px;
-            font-size: 18px;
+        button:hover {
+            background-color: #4752C4;
         }
     </style>
 </head>
 <body>
-    <header>Positive Social</header>
-    <div class="post-container">
-        <div class="profile">
-            <img src="https://via.placeholder.com/40" alt="Profile Picture">
-            <span>Mohammed Huzyfa</span>
-        </div>
-        <div class="post-content">
-            Today, I want to eat some food!
-        </div>
-    </div>
-    <div class="post-container">
-        <div class="profile">
-            <img src="https://via.placeholder.com/40" alt="Profile Picture">
-            <span>Jamal Skimtatota</span>
-        </div>
-        <div class="post-content">
-            Uh oh! I'm a few pounds of my weight goal!
-        </div>
-    </div>
+
+    <h1>Send a Message to Discord</h1>
+    <input type="text" id="messageInput" placeholder="Type your message here...">
+    <br>
+    <button onclick="sendMessage()">Send Message</button>
+
+    <script>
+        function sendMessage() {
+            const webhookURL = "YOUR_DISCORD_WEBHOOK_URL"; // Replace this with your actual webhook URL
+            const message = document.getElementById("messageInput").value.trim();
+
+            if (message === "") {
+                alert("Please enter a message before sending.");
+                return;
+            }
+
+            const payload = {
+                content: message, // Send user input as message
+                username: "Webhook Bot" // Optional: Set a custom bot name
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Message sent successfully!");
+                    document.getElementById("messageInput").value = ""; // Clear input after sending
+                } else {
+                    alert("Failed to send message.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error sending message.");
+            });
+        }
+    </script>
+
 </body>
 </html>
