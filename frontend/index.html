@@ -34,7 +34,7 @@
 </head>
 <body>
 
-    <h1>Send a Message to Discord</h1>
+    <h1>Glowly Webhook Sender</h1>
     <input type="text" id="messageInput" placeholder="Type your message here...">
     <br>
     <button onclick="sendMessage()">Send Message</button>
@@ -51,7 +51,8 @@
 
             const payload = {
                 content: message,
-                username: "Glowly Updates"
+                username: "Glowly Updates",
+                avatar_url: "https://thumbs.dreamstime.com/b/brain-light-bulb-neon-icon-elements-idea-set-simple-websites-web-design-mobile-app-info-graphics-dark-gradient-147415866.jpg"
             };
 
             fetch(webhookURL, {
