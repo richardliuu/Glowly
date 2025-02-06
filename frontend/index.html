@@ -41,7 +41,7 @@
 
     <script>
         function sendMessage() {
-            const webhookURL = "YOUR_DISCORD_WEBHOOK_URL"; // Replace this with your actual webhook URL
+            const webhookURL = "https://discord.com/api/webhooks/1337108129103609999/BflQ7mK5jnzWuBevDqO-x7z_34qN1vSGIIkzP3IqwQOgXgJSPhQ4vx5MKqqjLt9S6Oin";
             const message = document.getElementById("messageInput").value.trim();
 
             if (message === "") {
@@ -50,8 +50,8 @@
             }
 
             const payload = {
-                content: message, // Send user input as message
-                username: "Webhook Bot" // Optional: Set a custom bot name
+                content: message,
+                username: "Glowly Updates"
             };
 
             fetch(webhookURL, {
@@ -64,7 +64,7 @@
             .then(response => {
                 if (response.ok) {
                     alert("Message sent successfully!");
-                    document.getElementById("messageInput").value = ""; // Clear input after sending
+                    document.getElementById("messageInput").value = "";
                 } else {
                     alert("Failed to send message.");
                 }
