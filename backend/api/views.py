@@ -89,3 +89,6 @@ class CommentLike(generics.UpdateAPIView):
         
         comment.save()
         return Response({"liked": liked}, status=status.HTTP_200_OK)
+    
+    class Chat():
+        pass
