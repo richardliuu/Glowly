@@ -3,79 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glowly</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        input {
-            width: 60%;
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #5865F2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #4752C4;
-        }
-    </style>
+    <title>Home - Glowly</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <h1>Glowly Webhook Sender</h1>
-    <input type="text" id="messageInput" placeholder="Type your message here...">
-    <br>
-    <button onclick="sendMessage()">Send Message</button>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="posts.html">Posts</a>
+        <a href="support.html">About</a>
+    </nav>
 
-    <script>
-        function sendMessage() {
-            const webhookURL = "https://discord.com/api/webhooks/1337108129103609999/BflQ7mK5jnzWuBevDqO-x7z_34qN1vSGIIkzP3IqwQOgXgJSPhQ4vx5MKqqjLt9S6Oin";
-            const message = document.getElementById("messageInput").value.trim();
-
-            if (message === "") {
-                alert("Please enter a message before sending.");
-                return;
-            }
-
-            const payload = {
-                content: message,
-                username: "Glowly Updates",
-                avatar_url: "https://thumbs.dreamstime.com/b/brain-light-bulb-neon-icon-elements-idea-set-simple-websites-web-design-mobile-app-info-graphics-dark-gradient-147415866.jpg"
-            };
-
-            fetch(webhookURL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("Message sent successfully!");
-                    document.getElementById("messageInput").value = "";
-                } else {
-                    alert("Failed to send message.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Error sending message.");
-            });
-        }
-    </script>
+    <h1>Welcome to My Website</h1>
+    <p>This is the homepage.</p>
 
 </body>
 </html>
