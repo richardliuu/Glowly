@@ -1,0 +1,90 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000; /* Pure black background */
+    color: #ffcc00; /* Yellow text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Glowing Text Effect */
+h1, h2, p, a {
+    text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 40px #ffcc00;
+}
+
+/* Navigation Bar */
+nav {
+    width: 100%;
+    background: #111; /* Dark gray */
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 2px 10px rgba(255, 204, 0, 0.5);
+}
+
+nav a {
+    color: #ffcc00;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: text-shadow 0.2s;
+}
+
+nav a:hover {
+    text-shadow: 0 0 15px #ffcc00;
+}
+
+/* Page Container */
+.container {
+    max-width: 800px;
+    width: 90%;
+    background: rgba(20, 20, 20, 0.8); /* Slightly visible background */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0px 4px 15px rgba(255, 204, 0, 0.5);
+    text-align: center;
+}
+
+/* Input Box */
+.input-box {
+    width: 100%;
+    background: #222;
+    border: 2px solid #ffcc00;
+    padding: 12px;
+    border-radius: 8px;
+    color: #ffcc00;
+    font-size: 16px;
+    outline: none;
+    margin-top: 15px;
+    box-shadow: 0 0 10px #ffcc00;
+}
+
+.input-box::placeholder {
+    color: #aa8800;
+}
+
+/* Button */
+.button {
+    background: #ffcc00;
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    font-weight: bold;
+    box-shadow: 0 0 15px #ffcc00;
+}
+
+.button:hover {
+    background: #ffdd44;
+    box-shadow: 0 0 25px #ffcc00;
+}
