@@ -12,8 +12,13 @@ Webhooks
 # Built Using
 
 Django 
-React 
-WebSockets 
+- REST Framework
+- Channels
+- CORS Headers  
+
+Vite React 
+- 
+-  
 
 # Contact Us
 Richard - 
