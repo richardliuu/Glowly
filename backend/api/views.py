@@ -6,6 +6,11 @@ from .serializers import PostSerializer, CommentSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post, Comment
 
+"""
+Views for many things are unfinished such as the chat feature and notifications 
+
+"""
+
 # Views for Posts
 
 class PostListCreate(generics.ListCreateAPIView):

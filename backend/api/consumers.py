@@ -1,9 +1,6 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-
-# Chat is currently unfinished
-
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
@@ -22,7 +19,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'type': 'chat_message',
                 'message': text_data
             }
-
         )
 
     async def chat_message(self, event):
@@ -31,8 +27,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message 
         }))
-
-# Notifications
 
 class Notification(AsyncWebsocketConsumer):
     async def connect(self):
@@ -47,10 +41,35 @@ class Notification(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name) 
         
     async def receive(self, text_data):
-        data = json.loads(text_data)
-        message = data['message']
-        await self.send(text_data=json.dumps({'message': message}))
+        try:
+            data = json.loads(text_data)
+            message = data['message']
 
+            if not message:
+                raise ValueError("Missing 'message' field")
+            
+            await self.channel_layer.group_send(
+                self.room_group_name, 
+                {
+                    'type': 'notifcation_send',
+                    'message': message 
+                }
+            )
+
+        except json.JSONDecodeError:
+            await self.send(text_data=json.dumps({
+                'error': "Invalid JSON"
+            }))
+
+        except ValueError as e: 
+            await self.send(text_data=json.dumps({
+                'error': str(e)
+            }))
+
+        except Exception as e:
+            await self.send(text_data=json.dumps({
+                'error': 'Unexpected Error has occured'
+            }))     
     
 
     async def notification_send(self, event):
