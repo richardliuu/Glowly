@@ -30,10 +30,6 @@ nav a {
     transition: text-shadow 0.2s;
 }
 
-nav a:hover {
-    text-shadow: 0 0 15px #ffcc00;
-}
-
 /* Page Container */
 .container {
     max-width: 800px;
