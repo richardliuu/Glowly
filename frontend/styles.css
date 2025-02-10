@@ -18,17 +18,17 @@ h1, h2, p, a {
 /* Navigation Bar */
 nav {
     width: 100%;
-    background: #dcdcdc; /* light gray */
+    background: #dcdcdc; /* Light gray */
     padding: 15px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Aligns items to the left */
     box-shadow: 0px 2px 10px rgba(255, 204, 0, 0.5);
+    padding-left: 20px; /* Adds some space from the left edge */
 }
 
 nav a {
     color: #ffcc00;
     text-decoration: none;
-    margin: 0 20px;
     font-size: 18px;
     padding: 8px 15px;
     border-radius: 8px;
@@ -43,17 +43,16 @@ nav a:hover {
 .container {
     max-width: 800px;
     width: 90%;
-    background: rgba(20, 20, 20, 0.8); /* Slightly visible background */
-    background: rgb(255, 255, 255); /* Slightly visible background */
+    background: rgba(255, 255, 255, 0.9); /* Light background with some transparency */
     padding: 20px;
     border-radius: 12px;
     margin-top: 30px;
 }
+
 /* Input Box */
 .input-box {
     width: 100%;
-    background: #222;
-    background: #ffffff;
+    background: #222; /* Dark background for contrast */
     border: 2px solid #ffcc00;
     padding: 12px;
     border-radius: 8px;
@@ -81,7 +80,7 @@ nav a:hover {
     transition: background-color 0.2s, box-shadow 0.2s;
     font-weight: bold;
     box-shadow: 0 0 15px #ffcc00;
-    float: right;
+    align-self: flex-end; /* Replace float with this */
 }
 
 .button:hover {
