@@ -33,6 +33,7 @@ nav a {
     padding: 8px 15px;
     border-radius: 8px;
     transition: text-shadow 0.2s;
+    float: right;
 }
 
 nav a:hover {
