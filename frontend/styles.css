@@ -23,7 +23,6 @@ nav {
     display: flex;
     justify-content: center;
     box-shadow: 0px 2px 10px rgba(255, 204, 0, 0.5);
-    float: right;
 }
 
 nav a {
@@ -34,7 +33,6 @@ nav a {
     padding: 8px 15px;
     border-radius: 8px;
     transition: text-shadow 0.2s;
-    float: right;
 }
 
 nav a:hover {
@@ -83,6 +81,7 @@ nav a:hover {
     transition: background-color 0.2s, box-shadow 0.2s;
     font-weight: bold;
     box-shadow: 0 0 15px #ffcc00;
+    float: right;
 }
 
 .button:hover {
