@@ -10,10 +10,6 @@ body {
     align-items: center;
 }
 
-/* Glowing Text Effect */
-h1, h2, p, a {
-    text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 40px #ffcc00;
-}
 
 /* Navigation Bar */
 nav {
