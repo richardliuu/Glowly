@@ -35,7 +35,7 @@ nav a:hover {
 .hero {
     width: 100%;
     height: 100vh;
-    background: url('https://via.placeholder.com/1500') center/cover no-repeat; /* Background Image */
+    background: url('https://media.licdn.com/dms/image/v2/C4E12AQE9mDP9bQWAlg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1622536122937?e=2147483647&v=beta&t=-Atceop9zTGiX4RkUAMfAZ_R_Po_FzXjdAvhuR6J_Xw') center/cover no-repeat; /* Background Image */
     display: flex;
     justify-content: center;
     align-items: center;
