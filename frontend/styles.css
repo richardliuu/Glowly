@@ -41,7 +41,7 @@ nav a:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: #fff;
+    color: #ffffff;
 }
 
 /* Add the blur to the background image */
@@ -53,6 +53,7 @@ nav a:hover {
     width: 100%;
     height: 100%;
     background: inherit;  /* Inherit the background from the hero element */
+    background-color: rgba(0, 0, 0, 0.5);  /* Black overlay with 50% transparency */
     filter: blur(8px);  /* Apply the blur */
     z-index: 0;  /* Ensure it stays behind the content */
 }
