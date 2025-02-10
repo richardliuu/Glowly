@@ -29,9 +29,6 @@ nav a {
     transition: text-shadow 0.2s;
 }
 
-nav a:hover {
-    text-shadow: 0 0 15px #ffcc00;
-}
 
 /* Page Container */
 .container {
@@ -76,9 +73,4 @@ nav a:hover {
     transition: background-color 0.2s, box-shadow 0.2s;
     font-weight: bold;
     box-shadow: 0 0 15px #ffcc00;
-}
-
-.button:hover {
-    background: #ffdd44;
-    box-shadow: 0 0 25px #ffcc00;
 }
