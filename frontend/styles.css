@@ -23,6 +23,7 @@ nav {
     display: flex;
     justify-content: center;
     box-shadow: 0px 2px 10px rgba(255, 204, 0, 0.5);
+    float: right;
 }
 
 nav a {
