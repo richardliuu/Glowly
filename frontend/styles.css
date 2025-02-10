@@ -35,7 +35,7 @@ nav a:hover {
 .hero {
     width: 100%;
     height: 100vh;
-    position: relative;  /* Ensure pseudo-element is positioned correctly */
+    position: relative;  /* To position the pseudo-element correctly */
     background: url('images/background.png') center/cover no-repeat;
     display: flex;
     justify-content: center;
@@ -44,23 +44,23 @@ nav a:hover {
     color: #fff;
 }
 
-/* Overlay with Blur */
-.hero::after {
+/* Add the blur to the background image */
+.hero::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);  /* Optional: Adds a semi-transparent dark layer */
-    filter: blur(8px); /* Adjust the blur level here */
-    z-index: 1; /* Ensure the overlay is above the background but below the text */
+    background: inherit;  /* Inherit the background from the hero element */
+    filter: blur(8px);  /* Apply the blur */
+    z-index: 0;  /* Ensure it stays behind the content */
 }
 
 /* Hero Content */
 .hero-content {
     position: relative;
-    z-index: 2; /* Ensures the text is above the blurred overlay */
+    z-index: 1;  /* Make sure content stays above the blurred background */
 }
 
 .hero h1 {
