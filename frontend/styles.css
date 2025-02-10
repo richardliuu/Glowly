@@ -1,122 +1,116 @@
 /* Global Styles */
-/* Hero Section - Fullscreen */
-
-.hero {
-    width: 100%;
-    height: 100vh; /* Full screen height */
-    background: #ffcc00; /* Yellow background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.hero-content {
-    max-width: 600px;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    color: #000;
-    margin-bottom: 10px;
-}
-
-.hero p {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Call-to-Action Button */
-.button {
-    background: #000;
-    color: #ffcc00;
-    padding: 12px 24px;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.button:hover {
-    background: #333;
-}
-
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #ffffff; /* Pure White background */
-    color: #ffcc00; /* Yellow text */
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    box-sizing: border-box;
 }
-
 
 /* Navigation Bar */
 nav {
     width: 100%;
-    background: #dcdcdc; /* Light gray */
-    padding: 15px;
+    background-color: #333;
+    padding: 20px;
     display: flex;
-    justify-content: flex-start; /* Aligns items to the left */
-    padding-left: 20px; /* Adds some space from the left edge */
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
 }
 
 nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+nav a:hover {
     color: #ffcc00;
+}
+
+/* Hero Section */
+.hero {
+    width: 100%;
+    height: 100vh;
+    background: url('https://via.placeholder.com/1500') center/cover no-repeat; /* Background Image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 700px;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    padding: 15px 25px;
+    background-color: #ffcc00;
+    color: #000;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #e6b800;
+}
+
+/* Main Content Section */
+.main-content {
+    background-color: #f4f4f4;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.main-content .container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.main-content h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.main-content p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Footer Section */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+footer .social-links a {
+    color: #fff;
+    margin: 0 10px;
     text-decoration: none;
     font-size: 18px;
-    padding: 8px 15px;
-    border-radius: 8px;
-    transition: text-shadow 0.2s;
 }
 
-/* Page Container */
-.container {
-    max-width: 800px;
-    width: 90%;
-    background: rgba(255, 255, 255, 0.9); /* Light background with some transparency */
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 30px;
-}
-
-/* Input Box */
-.input-box {
-    width: 100%;
-    background: #222; /* Dark background for contrast */
-    border: 2px solid #ffcc00;
-    padding: 12px;
-    border-radius: 8px;
+footer .social-links a:hover {
     color: #ffcc00;
-    font-size: 16px;
-    outline: none;
-    margin-top: 15px;
-}
-
-.input-box::placeholder {
-    color: #aa8800;
-}
-
-/* Button */
-.button {
-    background: #ffcc00;
-    color: #000;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.2s, box-shadow 0.2s;
-    font-weight: bold;
-    align-self: flex-end; /* Replace float with this */
-}
-
-.button:hover {
-    background: #ffdd44;
 }
