@@ -43,7 +43,7 @@ nav a:hover {
 .container {
     max-width: 800px;
     width: 90%;
-    background: rgba(20, 20, 20, 0.8); /* Slightly visible background */
+    background: rgb(255, 255, 255); /* Slightly visible background */
     padding: 20px;
     border-radius: 12px;
     margin-top: 30px;
@@ -54,7 +54,7 @@ nav a:hover {
 /* Input Box */
 .input-box {
     width: 100%;
-    background: #222;
+    background: #ffffff;
     border: 2px solid #ffcc00;
     padding: 12px;
     border-radius: 8px;
