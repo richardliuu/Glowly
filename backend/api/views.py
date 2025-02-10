@@ -11,41 +11,6 @@ Views for many things are unfinished such as the chat feature and notifications
 
 """
 
-# Views for Posts
-
-class PostListCreate(generics.ListCreateAPIView):
-    serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        return Post.objects.filter(author=user)
-    
-    def perform_create(self, serializer):
-        if serializer.is_valid():
-            serializer.save(author=self.request.user)
-        else:
-            print(serializer.errors)
-
-class PostDelete(generics.DestroyAPIView):
-    serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        return Post.objects.filter(author=user)
-    
-class PostEdit():
-    serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        pass
-
-class PostLike():
-    serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
-
     
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
