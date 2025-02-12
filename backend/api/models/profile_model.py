@@ -8,8 +8,8 @@ from PIL import Image
 class Profile(models.Model):
     username = models.CharField(max_length=50)
     email = models.EmailField()
-    profile_picture = models.ImageField(upload_to='avatars/')
-    bio = models.TextField()
+    profile_picture = models.ImageField(upload_to='avatars/', blank=True)
+    bio = models.TextField(blank=True)
 
     def save_picture(self, args, **kwargs):
         super().save(args, **kwargs)
