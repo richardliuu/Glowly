@@ -10,7 +10,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('created_date',)
     readonly_fields = ('created_date', 'image_preview')
     ordering = ('-created_date',)
-    fields = ('author', 'text', 'image', 'image_preview', 'created_date', 'liked_by')
+    fields = ('author', 'text', 'image', 'image_preview', 'created_date')  # Removed 'liked_by'
 
     def text_preview(self, obj):
         return obj.text[:50] + "..." if len(obj.text) > 50 else obj.text
@@ -24,6 +24,24 @@ class PostAdmin(admin.ModelAdmin):
     image_preview.short_description = "Image Preview"
 
     def likes_count(self, obj):
-        return obj.liked_by.count()
+        return obj.likes.count()  # Updated to use the Like model
     likes_count.short_description = "Likes"
 
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
+# Comment has different fields from post 
+# this is a copy and paste 
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    pass
+
+     
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('user', 'post', 'created_at')
+    search_fields = ('user__username', 'post__title')
+    list_filter = ('created_at',)
+    ordering = ('-created_at',)
