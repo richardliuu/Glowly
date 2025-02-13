@@ -23,6 +23,7 @@ nav {
     height: 50px; /* Adjust as needed */
     width: auto; /* Maintain aspect ratio */
     display: block;
+    object-fit: contain;
 }
 
 nav a {
