@@ -23,6 +23,7 @@ nav {
     height: 40px;  /* Adjust size as needed */
     width: auto;  /* Maintain aspect ratio */
     margin-right: 20px;  /* Space between logo and links */
+    background-color: red; /* Temporary debug (remove later) */
 }
 
 nav a {
