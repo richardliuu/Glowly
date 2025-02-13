@@ -29,9 +29,12 @@ nav {
 nav a {
     color: #fff;
     text-decoration: none;
-    margin: 0 20px;
-    font-size: 30px;
+    margin: 0 15px;
+    font-size: 22px; /* Increase font size */
     text-transform: uppercase;
+    font-weight: bold; /* Make text bold */
+    display: flex;
+    align-items: center; /* Vertically center the text */
 }
 
 nav a:hover {
