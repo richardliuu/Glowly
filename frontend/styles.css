@@ -20,10 +20,9 @@ nav {
 }
 
 .logo {
-    height: 40px;  /* Adjust size as needed */
-    width: auto;  /* Maintain aspect ratio */
-    margin-right: 20px;  /* Space between logo and links */
-    background-color: red; /* Temporary debug (remove later) */
+    height: 50px; /* Adjust as needed */
+    width: auto; /* Maintain aspect ratio */
+    display: block;
 }
 
 nav a {
