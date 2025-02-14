@@ -12,12 +12,13 @@ class Post(models.Model):
     def __str__(self):
         return self.text[:50]
   
-    def save(self, args, **kwargs):
-        super().save(args, **kwargs)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
+        if self.image:
+            img = Image.open(self.image.path)
 
-        if img.height > 1800 or img.width > 1800:
-            output_size = (1800, 1800)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+            if img.height > 1800 or img.width > 1800:
+                output_size = (1800, 1800)
+                img.thumbnail(output_size)
+                img.save(self.image.path)

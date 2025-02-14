@@ -11,7 +11,7 @@ class CommentLike(generics.UpdateAPIView):
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticated]
 
-    def update(self, request, args, **kwargs):
+    def update(self, request, *args, **kwargs):
         comment = self.get_object()
         user = request.user
         
