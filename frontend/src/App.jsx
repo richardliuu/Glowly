@@ -12,12 +12,13 @@ function Logout() {
   return <Navigate to="/login" />
 }
 
-function Register() {
+function RegisterAndLogout() {
   localStorage.clear()
   return <Register />
 }
 
 function Chat() {
+  return <Chat />;
 
 }
 
