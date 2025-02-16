@@ -2,6 +2,7 @@ import react from "react";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/register.jsx";
 import NotFound from "./pages/notfound.jsx";
+import Home from "./pages/Home.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Chat from "./components/Chat.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
@@ -17,15 +18,11 @@ function RegisterAndLogout() {
   return <Register />
 }
 
-function Chat() {
-  return <Chat />;
-
-}
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to="/register" />} />
         <Route
           path="/"
           element={
@@ -43,6 +40,4 @@ function App() {
   )
 }
 
-
-
-export default App
+export default App;
