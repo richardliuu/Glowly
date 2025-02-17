@@ -1,3 +1,4 @@
+Set-ExecutionPolicy Unrestricted -Scope Process
 # Running the backend
 
 .venv\Scripts\activate
