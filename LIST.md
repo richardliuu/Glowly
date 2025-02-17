@@ -1,7 +1,14 @@
 # Running the backend
 
-cd backend
+.venv\Scripts\activate
+cd backend 
 python manage.py runserver
+
+# Running the frontend
+
+.venv\Scripts\activate    (Root Directory)
+cd frontend
+npm run dev
 
 # Need to access the REST framework to check if the models can correctly input data 
 

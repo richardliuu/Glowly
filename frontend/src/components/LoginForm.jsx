@@ -8,6 +8,7 @@ import api from "../api";
 function LoginForm({route, method}) {
         const [username, setUsername] = useState("");
         const [password, setPassword] = useState("");
+        const [email, setEmail] = useState("");
         const [loading, setLoading] = useState(false);
         const navigate = useNavigate();
     
@@ -18,7 +19,7 @@ function LoginForm({route, method}) {
             e.preventDefault();
     
             try {
-                const res = await api.post(route, { username, password })
+                const res = await api.post(route, { username, password, email })
                 if (method === "login") {
                     localStorage.setItem(ACCESS_TOKEN, res.data.access);
                     localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
@@ -50,6 +51,15 @@ function LoginForm({route, method}) {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                 />
+                <input
+                    className="form-input"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                />
+
+
                 {loading && <Loading />}
                 <button className="form-button" type="submit">
                     {name}
