@@ -1,43 +1,46 @@
-import react from "react";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/register.jsx";
-import NotFound from "./pages/notfound.jsx";
-import Home from "./pages/Home.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import Chat from "./components/Chat.jsx";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-
-
-function Logout() {
-  localStorage.clear() 
-  return <Navigate to="/login" />
-}
-
-function RegisterAndLogout() {
-  localStorage.clear()
-  return <Register />
-}
+import { useState } from 'react'
+import './App.css'
+import Home from './components/Home'
+import Register from './components/Register'
+import Login from './components/Login'
+import About from './components/About'
+import Navbar from './components/Navbar'
+import {Routes, Route, useLocation} from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoutes'
+import PasswordResetRequest from './components/PasswordResetRequest'
+import PasswordReset from './components/PasswordReset'
 
 function App() {
+  const location = useLocation()
+  const noNavbar = location.pathname === "/register" || location.pathname === "/" || location.pathname.includes("password")
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/register" />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<RegisterAndLogout />} />
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      {
+        noNavbar ?
+        <Routes>
+            <Route path="/" element={<Login/>}/>
+            <Route path="/register" element={<Register/>}/>
+            <Route path="/request/password_reset" element={<PasswordResetRequest/>}/>
+            <Route path="/password-reset/:token" element={<PasswordReset/>}/>
+        </Routes>
+
+        :
+
+        <Navbar
+        content={
+          <Routes>
+            <Route element={<ProtectedRoute/>}> 
+                <Route path="/home" element={<Home/>}/>
+                <Route path="/about" element={<About/>}/>
+            </Route>
+          </Routes>
+
+        }
+      />
+      }
+    </>
   )
 }
 
-export default App;
+export default App
