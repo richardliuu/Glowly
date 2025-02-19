@@ -33,12 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
-    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
 }
 
 SIMPLE_JWT = {
@@ -62,6 +57,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'channels',
     'drf_yasg',
+    'django_rest_passwordreset',
+    'knox',
 ]
 
 SWAGGER_SETTINGS = {
@@ -165,6 +162,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
+
+AUTH_USER_MODEL = 'api.CustomUser'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
