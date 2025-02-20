@@ -22,4 +22,22 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
-# Will be a serializer for other models as well
+
+from .models import Post
+
+from rest_framework import serializers
+from .models import CustomUser  
+
+class PostSerializer(serializers.ModelSerializer):
+    author_email = serializers.EmailField(source='author.email', read_only=True)
+    likes_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Post
+        fields = ['id', 'author', 'author_email', 'title', 'content', 'image', 'created_at', 'updated_at', 'likes', 'likes_count']
+        extra_kwargs = {
+            'author': {'write_only': True},  
+        }
+
+    def get_likes_count(self, obj):
+        return obj.likes.count()

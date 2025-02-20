@@ -38,7 +38,7 @@ def get_mental_health_resources(request):
 # View for the OPENAI agent 
 
 from django.shortcuts import render
-from rest_framework import viewsets, permissions 
+from rest_framework import viewsets, permissions, status
 from .serializers import * 
 from .models import * 
 from rest_framework.response import Response 
@@ -95,3 +95,32 @@ class UserViewset(viewsets.ViewSet):
         queryset = User.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
+
+class PostViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+    
+    def list(self, request, *args, **kwargs):
+        queryset = Post.objects.filter(author = request.user)
+        serializer = self.get_serializer(queryset, many=True)
+
+    def update(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != request.user:
+            return Response({'error': 'You can only update your own posts'}, status=status.HTTP_403_FORBIDDEN)
+        return super().update(request, *args, **kwargs)
+    
+    def destroy(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != request.user:
+            return Response({'error': 'You can only delete your own posts'}, status=status.HTTP_403_FORBIDDEN)
+        return super().destroy(request, *args, **kwargs)
+
+    
