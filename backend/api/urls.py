@@ -8,5 +8,7 @@ router = DefaultRouter()
 router.register('register', RegisterViewset, basename='register')
 router.register('login', LoginViewset, basename='login')
 router.register('users', UserViewset, basename='users')
-urlpatterns = [router.urls, path('get-resources/', views.get_mental_health_resources, name='get_mental_health_resources'),
-]
+urlpatterns = router.urls
+#urlpatterns = [router.urls, path('get-resources/', views.get_mental_health_resources, name='get_mental_health_resources'),]
+
+# Richard - also commented just so the backend can work, trying to style the frontend 

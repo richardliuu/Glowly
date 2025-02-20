@@ -24,8 +24,11 @@ urlpatterns = [
     path('',include('api.urls')), 
 
     ### dont touch this i need this to work for openai stuff -->
-    path('api/', include('my_app.urls')),
-    #path('api/auth/',include('knox.urls')), 
+
+    # Richard - I'm going to comment this on rn just so the backend can work rn 
+
+    #path('api/', include('my_app.urls')),
+    
 
     path('logout/',knox_views.LogoutView.as_view(), name='knox_logout'), 
     path('logoutall/',knox_views.LogoutAllView.as_view(), name='knox_logoutall'), 
