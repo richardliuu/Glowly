@@ -35,6 +35,8 @@ def get_mental_health_resources(request):
 
 """
 
+# View for the OPENAI agent 
+
 from django.shortcuts import render
 from rest_framework import viewsets, permissions 
 from .serializers import * 

@@ -12,7 +12,10 @@ import MyMessage from './Message'
 
 const Login = () =>{
     const navigate = useNavigate()
-    const {handleSubmit, control} = useForm()
+    const {handleSubmit, control} = useForm({
+        defaultValues: { email: "", password: ""}
+    })
+    
     const [ShowMessage, setShowMessage] = useState(false)
 
     const submission = (data) => {
