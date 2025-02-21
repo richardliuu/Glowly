@@ -9,6 +9,8 @@ import {Routes, Route, useLocation} from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoutes'
 import PasswordResetRequest from './components/PasswordResetRequest'
 import PasswordReset from './components/PasswordReset'
+import CreatePost from './components/CreatePosts'
+import Posts from './components/Posts'
 
 function App() {
   const location = useLocation()
@@ -34,12 +36,9 @@ function App() {
                 <Route path="/home" element={<Home/>}/>
                 <Route path="/about" element={<About/>}/>
                 <Route path="/posts" element={<Posts/>}/>
-
-{/*Posts route is unfinished; need to add its components files*/}
-
+                <Route path="/create-post" element={<CreatePost/>}/>
             </Route>
           </Routes>
-
         }
       />
       }

@@ -96,7 +96,7 @@ class UserViewset(viewsets.ViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
-from django.contrib.auth.decorators import action
+from rest_framework.decorators import action
 
 class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -112,6 +112,8 @@ class PostViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = Post.objects.filter(author = request.user)
         serializer = self.get_serializer(queryset, many=True)
+        return Response({'error': 'You can only update your own posts'}, status=status.HTTP_403_FORBIDDEN)
+
 
     def update(self, request, *args, **kwargs):
         post = self.get_object()
