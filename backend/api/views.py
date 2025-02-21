@@ -96,6 +96,8 @@ class UserViewset(viewsets.ViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+from django.contrib.auth.decorators import action
+
 class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -122,5 +124,17 @@ class PostViewset(viewsets.ModelViewSet):
         if post.author != request.user:
             return Response({'error': 'You can only delete your own posts'}, status=status.HTTP_403_FORBIDDEN)
         return super().destroy(request, *args, **kwargs)
-
     
+    @action(detail=True, methods=['post'] )
+    def like(self, request, pk=None):
+        post = self.get_object()
+        user = request.user
+
+        if user in post.likes.all():
+            post.likes.remove(user)
+            return Response({'status': 'unliked'}, status=status.HTTP_200_OK)
+        else:
+            post.likes.add(user)
+            return Response({'status': 'liked'}, status=status.HTTP_200_OK)
+
+

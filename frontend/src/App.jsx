@@ -33,6 +33,10 @@ function App() {
             <Route element={<ProtectedRoute/>}> 
                 <Route path="/home" element={<Home/>}/>
                 <Route path="/about" element={<About/>}/>
+                <Route path="/posts" element={<Posts/>}/>
+
+{/*Posts route is unfinished; need to add its components files*/}
+
             </Route>
           </Routes>
 
