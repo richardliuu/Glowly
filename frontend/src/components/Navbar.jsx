@@ -13,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
+import HelpIcon from '@mui/icons-material/Help';
 import ArticleIcon from '@mui/icons-material/Article'; 
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useLocation } from 'react-router-dom';
@@ -81,6 +82,15 @@ export default function Navbar(props) {
                   <ArticleIcon /> 
                 </ListItemIcon>
                 <ListItemText primary={"Posts"} />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem key={5} disablePadding>
+              <ListItemButton component={Link} to="/support" selected={"/support" === path}>
+                <ListItemIcon>
+                  <HelpIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Support"} />
               </ListItemButton>
             </ListItem>
 
