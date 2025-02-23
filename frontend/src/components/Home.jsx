@@ -2,6 +2,7 @@ import '../Home.css';
 import AxiosInstance from './AxiosInstance';
 import { React, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
+import Search from "./Search"; // Import the Search component
 
 const Home = () => {
     const [myData, setMyData] = useState();
@@ -30,6 +31,11 @@ const Home = () => {
                         <p className="heroSubtitle">Connecting</p>
                     </div>
                     <button className="ctaButton">Get Started</button>
+
+                    {/* this is the search component */}
+                    <div style={{ marginTop: "30px" }}>
+                        <Search />
+                    </div>
                 </div>
             )}
         </div>
