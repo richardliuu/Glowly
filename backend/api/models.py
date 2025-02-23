@@ -68,7 +68,7 @@ class Post(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="posts")
     title = models.CharField(max_length=255)
     content = models.TextField()
-    image = models.ImageField(upload_to="post_images/", null=True, blank=True)
+    image = models.ImageField(upload_to="media\post_images", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(CustomUser, related_name="liked_posts", blank=True)

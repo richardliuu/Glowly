@@ -97,11 +97,13 @@ class UserViewset(viewsets.ViewSet):
         return Response(serializer.data)
 
 from rest_framework.decorators import action
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -112,7 +114,7 @@ class PostViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = Post.objects.filter(author = request.user)
         serializer = self.get_serializer(queryset, many=True)
-        return Response({'error': 'You can only update your own posts'}, status=status.HTTP_403_FORBIDDEN)
+        return Response(serializer.data, status=status.HTTP_200_OK )
 
 
     def update(self, request, *args, **kwargs):
