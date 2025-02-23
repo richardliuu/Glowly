@@ -11,6 +11,7 @@ import PasswordResetRequest from './components/PasswordResetRequest'
 import PasswordReset from './components/PasswordReset'
 import CreatePost from './components/CreatePosts'
 import Posts from './components/Posts'
+import Support from './components/Support'
 
 function App() {
   const location = useLocation()
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/about" element={<About/>}/>
                 <Route path="/posts" element={<Posts/>}/>
                 <Route path="/create-post" element={<CreatePost/>}/>
+                <Route path="/support" element={<Support/>}/>
             </Route>
           </Routes>
         }
