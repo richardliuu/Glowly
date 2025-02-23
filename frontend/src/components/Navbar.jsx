@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
@@ -39,13 +37,6 @@ export default function Navbar(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Glowly
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Drawer
         variant="permanent"
         sx={{
@@ -54,7 +45,6 @@ export default function Navbar(props) {
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
         }}
       >
-        <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>
             <ListItem key={1} disablePadding>
@@ -75,7 +65,6 @@ export default function Navbar(props) {
               </ListItemButton>
             </ListItem>
 
-            
             <ListItem key={4} disablePadding>
               <ListItemButton component={Link} to="/posts" selected={"/posts" === path}>
                 <ListItemIcon>
@@ -107,7 +96,6 @@ export default function Navbar(props) {
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
         {content}
       </Box>
     </Box>

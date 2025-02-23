@@ -4,18 +4,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(20, 20, 20); /* Dark background color */
-  background: linear-gradient(137deg, rgba(20, 20, 20, 1) 0%, rgba(50, 50, 50, 1) 100%); 
+  background-image: url('../images/loginbg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  position: relative; 
+}
+
+.myBackground::before {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .whiteBox {
   background-color: white;
   padding: 20px; 
-  min-width: 400px; /* Increase minimum width */
+  min-width: 400px; 
   height: 70%;
-  width: 40%; /* Increase width */
+  width: 40%; 
   border: 1px solid #333;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: add shadow for depth */
+  border-radius: 15px; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  position: relative; 
+  z-index: 2; 
 }
 
 .itemBox {
@@ -24,11 +37,12 @@
   align-items: center;
   width: 100%;
   height: 80px;
+  color: black; 
 }
 
 .title {
   font-size: 30px;
-  color: #333;
+  color: #000; /* Consistent black color */
 }
 
 .myForm, 
@@ -37,19 +51,22 @@
 }
 
 .myButton {
-  background: rgb(66, 8, 160) !important;
+  background: rgb(229, 201, 20) !important;
+  color: #000; 
+  border: none; 
+  padding: 10px; 
+  border-radius: 4px; 
+  cursor: pointer; 
 }
 
 .myButton:hover {
-  background: rgb(86, 10, 186); /* Hover effect */
-  cursor: pointer; /* Change cursor to pointer */
+  background: rgb(255, 183, 0); 
 }
 
-/* Optional: Style input fields */
+
 input {
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%; /* Ensure inputs take full width */
-  margin-top: 10px; /* Add some space between inputs */
+  border-radius: 4px; 
+  width: 100%; 
 }
