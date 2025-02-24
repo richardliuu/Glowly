@@ -1,5 +1,12 @@
-Set-ExecutionPolicy Unrestricted -Scope Process
-# Running the backend
+# Glowly Setup
+
+## Step 1: Install Requirements.txt
+
+Make sure you install all modules in the requirements.txt file, as well as `npm install / pip install` all of the packages as well.
+
+## Step 2: Launch Virtual Environment
+
+Run `Set-ExecutionPolicy Unrestricted -Scope Process` to confirm you have the ability to run all scripts. Next, create a 
 
 .venv\Scripts\activate
 cd backend 
