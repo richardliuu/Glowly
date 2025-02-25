@@ -1,0 +1,24 @@
+/* Navbar.css */
+
+.navbar {
+    flex-grow: 1;
+  }
+  
+  .navbar-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .navbar-title {
+    flex-grow: 1;
+  }
+  
+  .navbar-button {
+    color: white !important; /* Ensure the text is white */
+    text-transform: none;
+  }
+  
+  .navbar-button.active {
+    font-weight: bold;
+  }
+  
