@@ -98,39 +98,57 @@ class UserViewset(viewsets.ViewSet):
 
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, FormParser
+from .permissions import AllowCreateWithoutAuth
 
 class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [AllowCreateWithoutAuth]
     parser_classes = [MultiPartParser, FormParser]
 
     def perform_create(self, serializer):
+        # Ensure the current user is set as the author when creating a post
         serializer.save(author=self.request.user)
 
     def create(self, request, *args, **kwargs):
+        """
+        Custom POST method to handle the creation of posts
+        Includes validation and handling of file uploads
+        """
+        # Here, the request.data will already include the 'author' (from perform_create)
         return super().create(request, *args, **kwargs)
-    
-    def list(self, request, *args, **kwargs):
-        queryset = Post.objects.filter(author = request.user)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK )
 
+    def list(self, request, *args, **kwargs):
+        """
+        Override the list view to return posts only for the authenticated user
+        """
+        queryset = Post.objects.filter(author=request.user)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
+        """
+        Override the update method to only allow updating the user's own posts
+        """
         post = self.get_object()
         if post.author != request.user:
             return Response({'error': 'You can only update your own posts'}, status=status.HTTP_403_FORBIDDEN)
         return super().update(request, *args, **kwargs)
-    
+
     def destroy(self, request, *args, **kwargs):
+        """
+        Override the destroy method to only allow deleting the user's own posts
+        """
         post = self.get_object()
         if post.author != request.user:
             return Response({'error': 'You can only delete your own posts'}, status=status.HTTP_403_FORBIDDEN)
         return super().destroy(request, *args, **kwargs)
-    
-    @action(detail=True, methods=['post'] )
+
+    @action(detail=True, methods=['post'])
     def like(self, request, pk=None):
+        """
+        Custom action to like/unlike a post
+        """
         post = self.get_object()
         user = request.user
 
@@ -140,5 +158,3 @@ class PostViewset(viewsets.ModelViewSet):
         else:
             post.likes.add(user)
             return Response({'status': 'liked'}, status=status.HTTP_200_OK)
-
-

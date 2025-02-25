@@ -24,7 +24,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 from .models import Post
-
 from rest_framework import serializers
 from .models import CustomUser  
 
@@ -41,3 +40,11 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_likes_count(self, obj):
         return obj.likes.count()
+
+    def validate(self, data):
+        if not data.get('title'):
+            raise serializers.ValidationError("Title is required.")
+        if not data.get('content'):
+            raise serializers.ValidationError("Content is required.")
+        return data
+   
