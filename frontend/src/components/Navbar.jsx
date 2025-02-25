@@ -1,103 +1,70 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
-import HelpIcon from '@mui/icons-material/Help';
-import ArticleIcon from '@mui/icons-material/Article'; 
-import LogoutIcon from '@mui/icons-material/Logout';
-import { Link, useLocation } from 'react-router-dom';
-import AxiosInstance from './AxiosInstance';
-import { useNavigate } from 'react-router-dom';
+import * as React from "react";
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
+import HelpIcon from "@mui/icons-material/Help";
+import ArticleIcon from "@mui/icons-material/Article";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import AxiosInstance from "./AxiosInstance";
+import "../Navbar.css"; // Import CSS file
 
-const drawerWidth = 240;
-
-export default function Navbar(props) {
-  const { content } = props;
+export default function Navbar({ content }) {
   const location = useLocation();
-  const path = location.pathname;
   const navigate = useNavigate();
 
   const logoutUser = () => {
-    AxiosInstance.post(`logoutall/`, {})
-      .then(() => {
-        localStorage.removeItem("Token");
-        navigate('/');
-      });
+    AxiosInstance.post("logoutall/", {}).then(() => {
+      localStorage.removeItem("Token");
+      navigate("/");
+    });
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-            <ListItem key={1} disablePadding>
-              <ListItemButton component={Link} to="/home" selected={"/home" === path}>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Home"} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem key={2} disablePadding>
-              <ListItemButton component={Link} to="/about" selected={"/about" === path}>
-                <ListItemIcon>
-                  <InfoIcon />
-                </ListItemIcon>
-                <ListItemText primary={"About"} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem key={4} disablePadding>
-              <ListItemButton component={Link} to="/posts" selected={"/posts" === path}>
-                <ListItemIcon>
-                  <ArticleIcon /> 
-                </ListItemIcon>
-                <ListItemText primary={"Posts"} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem key={5} disablePadding>
-              <ListItemButton component={Link} to="/support" selected={"/support" === path}>
-                <ListItemIcon>
-                  <HelpIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Support"} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem key={3} disablePadding>
-              <ListItemButton onClick={logoutUser}>
-                <ListItemIcon>
-                  <LogoutIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Logout"} />
-              </ListItemButton>
-            </ListItem>
-
-          </List>
-        </Box>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {content}
-      </Box>
+    <Box className="navbar">
+      <AppBar position="static">
+        <Toolbar className="navbar-toolbar">
+          <Typography variant="h6" className="navbar-title">
+            My App
+          </Typography>
+          <Button
+            component={Link}
+            to="/home"
+            startIcon={<HomeIcon />}
+            className={`navbar-button ${location.pathname === "/home" ? "active" : ""}`}
+          >
+            Home
+          </Button>
+          <Button
+            component={Link}
+            to="/about"
+            startIcon={<InfoIcon />}
+            className={`navbar-button ${location.pathname === "/about" ? "active" : ""}`}
+          >
+            About
+          </Button>
+          <Button
+            component={Link}
+            to="/posts"
+            startIcon={<ArticleIcon />}
+            className={`navbar-button ${location.pathname === "/posts" ? "active" : ""}`}
+          >
+            Posts
+          </Button>
+          <Button
+            component={Link}
+            to="/support"
+            startIcon={<HelpIcon />}
+            className={`navbar-button ${location.pathname === "/support" ? "active" : ""}`}
+          >
+            Support
+          </Button>
+          <Button onClick={logoutUser} startIcon={<LogoutIcon />} className="navbar-button">
+            Logout
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Box sx={{ p: 3 }}>{content}</Box>
     </Box>
   );
 }
