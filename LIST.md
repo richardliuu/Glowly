@@ -1,13 +1,13 @@
 Set-ExecutionPolicy Unrestricted -Scope Process
 # Running the backend
 
-.venv\Scripts\activate
+.venv\Scripts\activate (Root Directory)
 cd backend 
 python manage.py runserver
 
 # Running the frontend
 
-.venv\Scripts\activate    (Root Directory)
+.venv\Scripts\activate (Root Directory)
 cd frontend
 npm run dev
 
