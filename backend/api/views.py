@@ -1,19 +1,23 @@
-"""from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
+from django.http import JsonResponse
+from rest_framework.viewsets import ViewSet
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import action
 import openai
 
 openai.api_key = 'YOUR_OPENAI_API_KEY'
 
-@csrf_exempt
-def get_mental_health_resources(request):
-    if request.method == 'POST':
+class MentalHealthResourceViewSet(ViewSet):
+    permission_classes = [IsAuthenticated]
+
+    @action(detail=False, methods=['post'])
+    def get_resources(self, request):
         try:
-            data = json.loads(request.body)
+            data = request.data  
             issue = data.get('mental_health_issue')
 
             if not issue:
-                return JsonResponse({'error': 'Mental health issue is required'}, status=400)
+                return Response({'error': 'Mental health issue is required'}, status=400)
 
             response = openai.ChatCompletion.create(
                 model="gpt-4",
@@ -26,14 +30,11 @@ def get_mental_health_resources(request):
 
             resources = response['choices'][0]['message']['content'].strip()
 
-            return JsonResponse({'resources': resources})
+            return Response({'resources': resources})
 
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+            return Response({'error': str(e)}, status=500)
 
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
-
-"""
 
 # View for the OPENAI agent 
 
@@ -87,7 +88,7 @@ class RegisterViewset(viewsets.ViewSet):
 
 
 class UserViewset(viewsets.ViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
 
@@ -96,18 +97,20 @@ class UserViewset(viewsets.ViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+# Post View and Imports
+
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, FormParser
 from .permissions import AllowCreateWithoutAuth
+from rest_framework import permissions
 
 class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [AllowCreateWithoutAuth]
+    permission_classes = [permissions.IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
 
     def perform_create(self, serializer):
-        # Ensure the current user is set as the author when creating a post
         serializer.save(author=self.request.user)
 
     def create(self, request, *args, **kwargs):

@@ -6,8 +6,10 @@ const AxiosInstance = axios.create({
     baseURL: baseUrl,
     timeout: 5000, 
     headers:{
+        "Authorization": `Token ${localStorage.getItem("authToken")}`,
         "Content-Type":"application/json",
-         accept: "application/json"
+         accept: "application/json",
+    
     }
 })
 
