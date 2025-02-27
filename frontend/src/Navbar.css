@@ -1,24 +1,79 @@
 /* Navbar.css */
-
 .navbar {
-    flex-grow: 1;
-  }
-  
+  flex-grow: 1;
+}
+
+.navbar-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #121212; /* Dark black background */
+  padding-right: 16px; /* Prevent the logout button from being cut off */
+}
+
+.navbar-title {
+  flex-grow: 1;
+  color: rgb(236, 201, 75);
+}
+
+.navbar-button {
+  color: rgb(236, 201, 75) !important;
+  text-transform: none;
+  padding: 5px 10px;
+  font-size: 0.875rem;
+  transition: background-color 0.2s; /* Smooth transition for hover effect */
+}
+
+.navbar-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+}
+
+.navbar-button.active {
+  font-weight: bold;
+  position: relative;
+}
+
+/* Underline indicator for active button */
+.navbar-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background-color: rgb(255, 221, 0); /* Light blue underline */
+}
+
+/* Override Material-UI AppBar color */
+.MuiAppBar-root {
+  background-color: #121212 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Styling for the nav buttons container */
+.nav-buttons-container {
+  overflow: visible;
+  flex-wrap: nowrap;
+}
+
+/* Style the menu icon for mobile */
+.MuiIconButton-root {
+  color: white !important;
+}
+
+/* Style menu items */
+.MuiMenuItem-root {
+  display: flex;
+  align-items: center;
+}
+
+.MuiMenuItem-root.Mui-selected {
+  background-color: rgba(144, 202, 249, 0.2) !important; /* Light blue background for selected items */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .navbar-toolbar {
-    display: flex;
-    justify-content: space-between;
+    padding-right: 8px;
   }
-  
-  .navbar-title {
-    flex-grow: 1;
-  }
-  
-  .navbar-button {
-    color: white !important; /* Ensure the text is white */
-    text-transform: none;
-  }
-  
-  .navbar-button.active {
-    font-weight: bold;
-  }
-  
+}

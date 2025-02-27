@@ -1,51 +1,50 @@
-import { useState } from 'react'
-import './App.css';
-import Home from './components/Home'
-import Register from './components/Register'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import './App.css'
+
+// Components
 import Login from './components/Login'
-import About from './components/About'
-import Navbar from './components/Navbar'
-import {Routes, Route, useLocation} from 'react-router-dom'
-import ProtectedRoute from './components/ProtectedRoutes'
+import Register from './components/Register'
 import PasswordResetRequest from './components/PasswordResetRequest'
 import PasswordReset from './components/PasswordReset'
-import CreatePost from './components/CreatePosts'
+import Home from './components/Home'
+import About from './components/About'
 import Posts from './components/Posts'
+import CreatePost from './components/CreatePosts'
 import Support from './components/Support'
+import Navbar from './components/Navbar'
+import ProtectedRoute from './components/ProtectedRoutes'
 
 function App() {
   const location = useLocation()
-  const noNavbar = location.pathname === "/register" || location.pathname === "/" || location.pathname.includes("password")
+  // Simplified path check using startsWith and includes
+  const noNavbar = location.pathname === "/" || 
+                   location.pathname === "/register" || 
+                   location.pathname.includes("password")
 
-  return (
-    <>
-      {
-        noNavbar ?
-        <Routes>
-            <Route path="/" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/request/password_reset" element={<PasswordResetRequest/>}/>
-            <Route path="/password-reset/:token" element={<PasswordReset/>}/>
-        </Routes>
-
-        :
-
-        <Navbar
-        content={
-          <Routes>
-            <Route element={<ProtectedRoute/>}> 
-                <Route path="/home" element={<Home/>}/>
-                <Route path="/about" element={<About/>}/>
-                <Route path="/posts" element={<Posts/>}/>
-                <Route path="/create-post" element={<CreatePost/>}/>
-                <Route path="/support" element={<Support/>}/>
-            </Route>
-          </Routes>
-        }
-      />
-      }
-    </>
+  // Define routes that don't need the navbar
+  const publicRoutes = (
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/request/password_reset" element={<PasswordResetRequest />} />
+      <Route path="/password-reset/:token" element={<PasswordReset />} />
+    </Routes>
   )
+
+  // Define routes that need the navbar and protection
+  const protectedRoutes = (
+    <Routes>
+      <Route element={<ProtectedRoute />}> 
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/create-post" element={<CreatePost />} />
+        <Route path="/support" element={<Support />} />
+      </Route>
+    </Routes>
+  )
+
+  return noNavbar ? publicRoutes : <Navbar content={protectedRoutes} />
 }
 
 export default App
