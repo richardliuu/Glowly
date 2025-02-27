@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../components/AxiosInstance";
+import AxiosInstance from "../components/AxiosInstance";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -11,7 +11,7 @@ const Search = () => {
     
     setLoading(true);
     try {
-      const response = await axios.post("/api/search_resources/", { query });
+      const response = await AxiosInstance.post("/search_resources/", { query });
       setResults(response.data);
     } catch (error) {
       console.error("Error fetching resources:", error);

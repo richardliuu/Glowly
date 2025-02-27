@@ -10,14 +10,20 @@ const Posts = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await AxiosInstance.get("posts/");
-      setPosts(response.data);
+      const response = await AxiosInstance.get("posts/", {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("authToken")}`, // Add Knox token
+        }
+      });
+      console.log(response);  // Log the full response for debugging
+      setPosts(response.data); // Access data only if the structure is correct
       setLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
+      setLoading(false);  // Stop loading state in case of error
     }
   };
-
+  
   useEffect(() => {
     fetchPosts();
   }, []);

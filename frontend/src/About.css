@@ -1,0 +1,51 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for the about content */
+.about-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Styling for the heading */
+.about-container h1 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 2rem;
+}
+
+/* Styling for the paragraph */
+.about-container p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Optional: Add some responsive design */
+@media (max-width: 768px) {
+    .about-container {
+        padding: 15px;
+    }
+
+    .about-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .about-container p {
+        font-size: 0.9rem;
+    }
+}

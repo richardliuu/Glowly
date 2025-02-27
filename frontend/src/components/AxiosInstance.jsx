@@ -6,14 +6,16 @@ const AxiosInstance = axios.create({
     baseURL: baseUrl,
     timeout: 5000, 
     headers:{
+        "Authorization": `Token ${localStorage.getItem("authToken")}`,
         "Content-Type":"application/json",
-         accept: "application/json"
+         accept: "application/json",
+    
     }
 })
 
 AxiosInstance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('Token')
+        const token = localStorage.getItem('authToken')
         if(token){
             config.headers.Authorization = `Token ${token}`
         }
@@ -30,7 +32,7 @@ AxiosInstance.interceptors.response.use(
     }, 
     (error) => {
         if(error.response && error.response.status === 401){
-            localStorage.removeItem('Token')
+            localStorage.removeItem('authToken')
         }
 
     }

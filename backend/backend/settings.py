@@ -33,7 +33,14 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'knox.auth.TokenAuthentication',  # Knox authentication
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Require authentication
+
+        # Allow any to test posts
+    ],
 }
 
 # Application definition
@@ -47,13 +54,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    'rest_framework_simplejwt',
     'corsheaders',
     'channels',
     'drf_yasg',
     'django_rest_passwordreset',
     'knox',
 ]
+
+REST_KNOX = {
+    'TOKEN_TTL': timedelta(days=7),  # Tokens last for 7 days
+    'AUTO_REFRESH': True,  # Auto-refresh on every request
+}
+
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -167,4 +179,5 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
+MEDIA_ROOT = BASE_DIR, 'media'  
+

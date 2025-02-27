@@ -16,22 +16,22 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static 
 from django.urls import path, include
 from knox import views as knox_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('api.urls')), 
-
-    ### dont touch this i need this to work for openai stuff -->
-
-    # Richard - I'm going to comment this on rn just so the backend can work rn 
-
-    #path('api/', include('my_app.urls')),
-    
-
     path('logout/',knox_views.LogoutView.as_view(), name='knox_logout'), 
     path('logoutall/',knox_views.LogoutAllView.as_view(), name='knox_logoutall'), 
     path('api/password_reset/',include('django_rest_passwordreset.urls', namespace='password_reset')), 
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+  ### dont touch this i need this to work for openai stuff -->
+
+    # Richard - I'm going to comment this on rn just so the backend can work rn 
+
+    #path('api/', include('my_app.urls')),
