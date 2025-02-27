@@ -10,49 +10,60 @@ const CreatePost = () => {
   const [errorMessage, setErrorMessage] = useState(""); // For handling error messages
   const navigate = useNavigate();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(""); // Reset previous error message
-  
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
     if (image) {
       formData.append("image", image);
     }
-  
+
+    // 🔎 Debugging: Log FormData contents before making the request
+    console.log("🔍 FormData Debug:", {
+      title,
+      content,
+      image: image ? image.name : "No image uploaded",
+    });
+
     try {
+      const authToken = localStorage.getItem("authToken");
+
+      if (!authToken) {
+        setErrorMessage("Authentication token is missing. Please log in.");
+        return;
+      }
+
       const response = await AxiosInstance.post("posts/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Token ${localStorage.getItem("authToken")}`, // Knox token
+          Authorization: `Token ${authToken}`, // Knox token
         },
       });
-      console.log("Post created:", response.data);
+
+      console.log("✅ Post created successfully:", response.data);
       navigate("/posts");
-  
+
       // Reset form fields after successful submission
       setTitle("");
       setContent("");
       setImage(null);
     } catch (error) {
       if (error.response) {
-        // If error.response exists, it means we got a response with status code other than 2xx
-        console.error("Error creating post:", error.response.data);
+        // 🔎 Debugging: Log response errors
+        console.error("🚨 Error creating post:", error.response.data);
         setErrorMessage(error.response.data.detail || JSON.stringify(error.response.data));
       } else if (error.request) {
-        // If error.request exists, it means the request was made but no response was received
-        console.error("No response received:", error.request);
+        console.error("⚠️ No response from server:", error.request);
         setErrorMessage("No response received from the server.");
       } else {
-        // General error handling for other cases
-        console.error("Error creating post:", error.message);
+        console.error("❌ Unexpected error:", error.message);
         setErrorMessage("An unexpected error occurred.");
       }
     }
   };
-  
 
   return (
     <Box sx={{ p: 3 }}>
@@ -94,3 +105,4 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+

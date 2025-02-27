@@ -98,11 +98,13 @@ class UserViewset(viewsets.ViewSet):
         return Response(serializer.data)
 
 # Post View and Imports
-
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, FormParser
-from .permissions import AllowCreateWithoutAuth
-from rest_framework import permissions
+from rest_framework.response import Response
+from rest_framework import permissions, status
+import logging
+
+logger = logging.getLogger(__name__)  # Set up logging
 
 class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -118,8 +120,18 @@ class PostViewset(viewsets.ModelViewSet):
         Custom POST method to handle the creation of posts
         Includes validation and handling of file uploads
         """
-        # Here, the request.data will already include the 'author' (from perform_create)
-        return super().create(request, *args, **kwargs)
+        logger.info("Received request to create a post.")
+        logger.debug(f"Request Data: {request.data}")
+
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(author=request.user)
+            logger.info("Post created successfully.")
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        # Log errors if serialization fails
+        logger.error(f"Serializer Errors: {serializer.errors}")
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request, *args, **kwargs):
         """
@@ -135,7 +147,10 @@ class PostViewset(viewsets.ModelViewSet):
         """
         post = self.get_object()
         if post.author != request.user:
+            logger.warning("Unauthorized update attempt detected.")
             return Response({'error': 'You can only update your own posts'}, status=status.HTTP_403_FORBIDDEN)
+        
+        logger.info(f"Updating post {post.id}")
         return super().update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
@@ -144,7 +159,10 @@ class PostViewset(viewsets.ModelViewSet):
         """
         post = self.get_object()
         if post.author != request.user:
+            logger.warning("Unauthorized delete attempt detected.")
             return Response({'error': 'You can only delete your own posts'}, status=status.HTTP_403_FORBIDDEN)
+        
+        logger.info(f"Deleting post {post.id}")
         return super().destroy(request, *args, **kwargs)
 
     @action(detail=True, methods=['post'])
@@ -157,7 +175,9 @@ class PostViewset(viewsets.ModelViewSet):
 
         if user in post.likes.all():
             post.likes.remove(user)
+            logger.info(f"User {user.id} unliked post {post.id}")
             return Response({'status': 'unliked'}, status=status.HTTP_200_OK)
         else:
             post.likes.add(user)
+            logger.info(f"User {user.id} liked post {post.id}")
             return Response({'status': 'liked'}, status=status.HTTP_200_OK)
