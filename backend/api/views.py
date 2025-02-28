@@ -113,7 +113,10 @@ class PostViewset(viewsets.ModelViewSet):
     parser_classes = [MultiPartParser, FormParser]
 
     def perform_create(self, serializer):
+        if not self.request.user or self.request.user.is_anonymous:
+            raise serializers.ValidationError({"author": "Authentication is required to create a post."})
         serializer.save(author=self.request.user)
+
 
     def create(self, request, *args, **kwargs):
         """
