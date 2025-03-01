@@ -6,13 +6,18 @@ from rest_framework.decorators import action
 import openai
 from django.conf import settings
 from .models import MentalHealthResource
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from rest_framework.viewsets import ViewSet
+from rest_framework.permissions import IsAuthenticated
+from .models import MentalHealthResource
 
 openai.api_key = settings.OPENAI_API_KEY
 
 class MentalHealthResourceViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], url_path="get-resources")
     def get_resources(self, request):
         try:
             data = request.data  
@@ -24,7 +29,7 @@ class MentalHealthResourceViewSet(ViewSet):
             # Fetch related resources from the database
             related_resources = MentalHealthResource.objects.filter(description__icontains=issue)
 
-            # Query ChatGPT for additional suggestions
+            # Query OpenAI for additional suggestions
             gpt_response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -45,7 +50,8 @@ class MentalHealthResourceViewSet(ViewSet):
         except Exception as e:
             return Response({"error": f"Internal server error: {str(e)}"}, status=500)
 
-# View for the OPENAI agent 
+
+# View for the OPENAI search
 
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, status

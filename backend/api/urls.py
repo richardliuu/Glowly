@@ -9,7 +9,7 @@ router.register('register', RegisterViewset, basename='register')
 router.register('login', LoginViewset, basename='login')
 router.register('users', UserViewset, basename='users')
 router.register('posts', PostViewset, basename='post')
-router.register('mental-health-resources', MentalHealthResourceViewSet, basename='mental_health_resources')
+router.register(r'mental-health-resources', MentalHealthResourceViewSet, basename='mental_health_resources')
 
 urlpatterns = [
     path('', include(router.urls))

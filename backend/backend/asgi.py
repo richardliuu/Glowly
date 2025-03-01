@@ -7,20 +7,15 @@ For more information on this file, see
 https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/
 """
 
-import os
-from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
-from api.routing import websocket_urlpatterns
 from channels.auth import AuthMiddlewareStack
-from api.middleware import TokenAuthMiddleware
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'your_project.settings')
+from django.core.asgi import get_asgi_application
+from api.routing import websocket_urlpatterns  # Import your websocket URL patterns
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
-    "websocket": TokenAuthMiddleware(
-        AuthMiddlewareStack(
-            URLRouter(websocket_urlpatterns)
-        )
+    "websocket": AuthMiddlewareStack(  # Use the AuthMiddlewareStack for authentication
+        URLRouter(websocket_urlpatterns)
     ),
 })
+
