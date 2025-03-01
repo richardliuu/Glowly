@@ -13,6 +13,7 @@ import CreatePost from './components/CreatePosts'
 import Support from './components/Support'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoutes'
+import Chat from './components/Chat'
 
 function App() {
   const location = useLocation()
@@ -40,6 +41,7 @@ function App() {
         <Route path="/posts" element={<Posts />} />
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/support" element={<Support />} />
+        <Route path="/chat/:roomName" element={<Chat />} />
       </Route>
     </Routes>
   )
