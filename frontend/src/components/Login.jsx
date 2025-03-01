@@ -26,7 +26,7 @@ const Login = () =>{
 
         .then((response) => {
             console.log(response)
-            localStorage.setItem('Token', response.data.token)
+            localStorage.setItem('authToken', response.data.token)
             navigate(`/home`)
         })
         .catch((error) => {
