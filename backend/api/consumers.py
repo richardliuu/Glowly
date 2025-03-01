@@ -1,4 +1,4 @@
-"""import json
+import json
 from urllib.parse import parse_qs
 from channels.generic.websocket import AsyncWebsocketConsumer
 from knox.auth import TokenAuthentication
@@ -63,7 +63,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         await self.send(text_data=json.dumps({"message": message, "name": name}))
 
-"""
+
 
 
 

@@ -1,4 +1,4 @@
-"""from urllib.parse import parse_qs
+from urllib.parse import parse_qs
 from knox.auth import TokenAuthentication
 from django.contrib.auth.models import AnonymousUser
 
@@ -26,4 +26,4 @@ class TokenAuthMiddleware:
         scope["user"] = user
         return self.inner(scope)
 
-"""
+

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 import openai
 from django.conf import settings
+from .models import MentalHealthResource
 
 openai.api_key = settings.OPENAI_API_KEY
 
@@ -20,7 +21,11 @@ class MentalHealthResourceViewSet(ViewSet):
             if not issue:
                 return Response({'error': 'Mental health issue is required'}, status=400)
 
-            response = openai.ChatCompletion.create(
+            # Fetch related resources from the database
+            related_resources = MentalHealthResource.objects.filter(description__icontains=issue)
+
+            # Query ChatGPT for additional suggestions
+            gpt_response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant that provides mental health resources."},
@@ -29,13 +34,16 @@ class MentalHealthResourceViewSet(ViewSet):
                 max_tokens=500
             )
 
-            resources = response['choices'][0]['message']['content'].strip()
+            chatgpt_suggestion = gpt_response["choices"][0]["message"]["content"].strip()
 
-            return Response({'resources': resources})
-
+            return Response({
+                "chatgpt_suggestion": chatgpt_suggestion,
+                "database_resources": list(related_resources.values())
+            })
+        except openai.error.OpenAIError as e:
+            return Response({"error": f"OpenAI API error: {str(e)}"}, status=500)
         except Exception as e:
-            return Response({'error': str(e)}, status=500)
-
+            return Response({"error": f"Internal server error: {str(e)}"}, status=500)
 
 # View for the OPENAI agent 
 
@@ -71,7 +79,6 @@ class LoginViewset(viewsets.ViewSet):
                 return Response({"error":"Invalid credentials"}, status=401)    
         else: 
             return Response(serializer.errors,status=400)
-
 
 
 class RegisterViewset(viewsets.ViewSet):
@@ -119,38 +126,27 @@ class PostViewset(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
     def create(self, request, *args, **kwargs):
-        """
-        Custom POST method to handle the creation of posts
-        Includes validation and handling of file uploads
-        """
         logger.info("Received request to create a post.")
         logger.debug(f"Request Data: {request.data}")
 
         data = request.data.copy()
-        data["author"] = request.user.id  # Ensure the author is set
+        data["author"] = request.user.id  
 
         serializer = self.get_serializer(data=data)
         if serializer.is_valid():
-            serializer.save(author=request.user, image=request.FILES.get("image"))  # Handling image
+            serializer.save(author=request.user, image=request.FILES.get("image"))  
             logger.info("Post created successfully.")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
-        # Log errors if serialization fails
         logger.error(f"Serializer Errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request, *args, **kwargs):
-        """
-        Override the list view to return posts only for the authenticated user
-        """
         queryset = Post.objects.filter(author=request.user)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
-        """
-        Override the update method to only allow updating the user's own posts
-        """
         post = self.get_object()
         if post.author != request.user:
             logger.warning("Unauthorized update attempt detected.")
@@ -160,9 +156,6 @@ class PostViewset(viewsets.ModelViewSet):
         return super().update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
-        """
-        Override the destroy method to only allow deleting the user's own posts
-        """
         post = self.get_object()
         if post.author != request.user:
             logger.warning("Unauthorized delete attempt detected.")
@@ -173,9 +166,6 @@ class PostViewset(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def like(self, request, pk=None):
-        """
-        Custom action to like/unlike a post
-        """
         post = self.get_object()
         user = request.user
 
