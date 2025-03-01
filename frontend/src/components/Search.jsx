@@ -11,7 +11,7 @@ const Search = () => {
     
     setLoading(true);
     try {
-      const response = await AxiosInstance.post("/search_resources/", { query });
+      const response = await AxiosInstance.post("/mental-health-resources/get_resources/", { mental_health_issue: query });
       setResults(response.data);
     } catch (error) {
       console.error("Error fetching resources:", error);

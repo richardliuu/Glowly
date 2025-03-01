@@ -4,8 +4,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 import openai
+from django.conf import settings
 
-openai.api_key = 'YOUR_OPENAI_API_KEY'
+openai.api_key = settings.OPENAI_API_KEY
 
 class MentalHealthResourceViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
@@ -117,7 +118,6 @@ class PostViewset(viewsets.ModelViewSet):
             raise serializers.ValidationError({"author": "Authentication is required to create a post."})
         serializer.save(author=self.request.user)
 
-
     def create(self, request, *args, **kwargs):
         """
         Custom POST method to handle the creation of posts
@@ -126,9 +126,12 @@ class PostViewset(viewsets.ModelViewSet):
         logger.info("Received request to create a post.")
         logger.debug(f"Request Data: {request.data}")
 
-        serializer = self.get_serializer(data=request.data)
+        data = request.data.copy()
+        data["author"] = request.user.id  # Ensure the author is set
+
+        serializer = self.get_serializer(data=data)
         if serializer.is_valid():
-            serializer.save(author=request.user)
+            serializer.save(author=request.user, image=request.FILES.get("image"))  # Handling image
             logger.info("Post created successfully.")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
