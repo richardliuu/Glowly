@@ -1,4 +1,3 @@
-import traceback
 import openai
 from django.conf import settings
 from .models import MentalHealthResource
@@ -15,19 +14,16 @@ class MentalHealthResourceViewSet(ViewSet):
     @action(detail=False, methods=['post'])
     def get_resources(self, request):
         try:
-            print("Received request:", request.data)  # Debugging
             data = request.data  
             issue = data.get('mental_health_issue')
 
             if not issue:
-                print("No issue provided")  # Debugging
                 return Response({'error': 'Mental health issue is required'}, status=400)
 
             # Fetch related resources from the database
             related_resources = MentalHealthResource.objects.filter(description__icontains=issue)
 
             # Query OpenAI for additional suggestions
-            print("Querying OpenAI API with issue:", issue)  # Debugging
             gpt_response = openai.client.chat.completions.create(
                 model="gpt-4",
                 messages=[
@@ -38,7 +34,6 @@ class MentalHealthResourceViewSet(ViewSet):
             )
 
             chatgpt_suggestion = gpt_response.choices[0].message.content.strip()
-            print("ChatGPT response received:", chatgpt_suggestion)  # Debugging
 
             return Response({
                 "chatgpt_suggestion": chatgpt_suggestion,
@@ -46,12 +41,9 @@ class MentalHealthResourceViewSet(ViewSet):
             })
 
         except openai.OpenAIError as e:
-            print("OpenAI API Error:", str(e))  # Debugging
             return Response({"error": f"OpenAI API error: {str(e)}"}, status=500)
         except Exception as e:
-            error_details = traceback.format_exc()  # Get full error traceback
-            print("Error in get_resources:", error_details)  # Print full error to terminal
-            return Response({"error": f"Internal server error: {str(e)}", "details": error_details}, status=500)
+            return Response({"error": f"Internal server error: {str(e)}"}, status=500)
 
 
 # View for the OPENAI agent 
