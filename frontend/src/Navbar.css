@@ -1,4 +1,3 @@
-/* Navbar.css */
 .navbar {
   flex-grow: 1;
 }
@@ -58,13 +57,14 @@
 
 /* Style the menu icon for mobile */
 .MuiIconButton-root {
-  color: white !important;
+  color: rgb(236, 201, 75) !important; /* Changed back to yellow */
 }
 
 /* Style menu items */
 .MuiMenuItem-root {
   display: flex;
   align-items: center;
+  color: rgb(236, 201, 75) !important; /* Changed back to yellow */
 }
 
 .MuiMenuItem-root.Mui-selected {

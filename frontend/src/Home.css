@@ -1,43 +1,64 @@
+/* Reset any default margins and ensure full-screen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevents scrolling */
+}
+
+/* Full-screen background */
 .heroContainer {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    color: rgb(0, 0, 0); /* Text color */
-    text-align: center; /* Center text */
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, #ffffff, #dbdbdb);
+    text-align: center;
+    color: rgb(0, 0, 0);
 }
 
-.loading {
-    font-size: 20px; /* Increase font size for loading text */
-    color: #fff; /* Change color for visibility */
-}
-
-.heroContent {
-    padding: 40px;
-    border-radius: 10px; /* Rounded corners */
-}
-
+/* Title */
 .heroTitle {
-    font-size: 48px; /* Large title */
-    margin-bottom: 20px; /* Space below title */
+    font-size: 60px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
 }
 
-.heroSubtitleContainer {
-    margin-bottom: 30px; /* Space below subtitle */
-}
-
+/* Subtitle */
 .heroSubtitle {
-    font-size: 24px; /* Subtitle size */
+    font-size: 24px;
+    font-weight: 500;
+    opacity: 0.8;
+    margin-bottom: 30px;
 }
 
+/* CTA button */
 .ctaButton {
-    padding: 10px 20px; /* Button padding */
-    font-size: 18px; /* Button font size */
-    border-radius: 5px; /* Rounded button corners */
-    background-color: rgb(255, 183, 0); /* Button color */
-    color: rgb(0, 0, 0); /* Brgb(12, 12, 8)r */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor on hover */
+    padding: 14px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #fff700, #ffd500, #ffd072);
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 15px rgba(255, 154, 139, 0.3);
+    transition: all 0.3s ease-in-out;
 }
 
 .ctaButton:hover {
-    background-color: rgb(255, 183, 50); /* Button hover color */
+    background: linear-gradient(135deg, #c9c201, #d3b001, #c68401);
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 20px rgba(255, 154, 139, 0.5);
 }

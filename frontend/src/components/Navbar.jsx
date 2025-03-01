@@ -8,6 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import AxiosInstance from "./AxiosInstance";
+import Search from "./Search";  // Importing the Search component
 import "../Navbar.css";
 
 export default function Navbar({ content }) {
@@ -56,6 +57,11 @@ export default function Navbar({ content }) {
           <Typography variant="h6" className="navbar-title">
             My App
           </Typography>
+
+          {/* Add Search Bar */}
+          <Box sx={{ flexGrow: 1, mx: 3, display: "flex", justifyContent: "center" }}>
+            <Search /> {/* Inserted Search component */}
+          </Box>
 
           {isMobile ? (
             <Box>
