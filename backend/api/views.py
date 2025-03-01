@@ -11,7 +11,7 @@ openai.api_key = settings.OPENAI_API_KEY
 class MentalHealthResourceViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], url_path="get-resources")
     def get_resources(self, request):
         try:
             data = request.data  
@@ -24,7 +24,7 @@ class MentalHealthResourceViewSet(ViewSet):
             related_resources = MentalHealthResource.objects.filter(description__icontains=issue)
 
             # Query OpenAI for additional suggestions
-            gpt_response = openai.client.chat.completions.create(
+            gpt_response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant that provides mental health resources."},
@@ -46,7 +46,7 @@ class MentalHealthResourceViewSet(ViewSet):
             return Response({"error": f"Internal server error: {str(e)}"}, status=500)
 
 
-# View for the OPENAI agent 
+# View for the OPENAI search
 
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, status
