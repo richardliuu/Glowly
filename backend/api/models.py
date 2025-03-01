@@ -9,16 +9,6 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 
-from django.db import models
-
-class MentalHealthResource(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    link = models.URLField()
-
-    def __str__(self):
-        return self.name
-
 class CustomUserManager(BaseUserManager): 
     def create_user(self, email, password=None, **extra_fields ): 
         if not email: 

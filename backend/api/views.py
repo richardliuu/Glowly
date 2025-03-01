@@ -1,10 +1,11 @@
+from django.http import JsonResponse
+from rest_framework.viewsets import ViewSet
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import action
 import openai
 from django.conf import settings
 from .models import MentalHealthResource
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.viewsets import ViewSet
-from rest_framework.permissions import IsAuthenticated
 
 openai.api_key = settings.OPENAI_API_KEY
 
@@ -23,8 +24,8 @@ class MentalHealthResourceViewSet(ViewSet):
             # Fetch related resources from the database
             related_resources = MentalHealthResource.objects.filter(description__icontains=issue)
 
-            # Query OpenAI for additional suggestions
-            gpt_response = openai.client.chat.completions.create(
+            # Query ChatGPT for additional suggestions
+            gpt_response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant that provides mental health resources."},
@@ -33,18 +34,16 @@ class MentalHealthResourceViewSet(ViewSet):
                 max_tokens=500
             )
 
-            chatgpt_suggestion = gpt_response.choices[0].message.content.strip()
+            chatgpt_suggestion = gpt_response["choices"][0]["message"]["content"].strip()
 
             return Response({
                 "chatgpt_suggestion": chatgpt_suggestion,
                 "database_resources": list(related_resources.values())
             })
-
-        except openai.OpenAIError as e:
+        except openai.error.OpenAIError as e:
             return Response({"error": f"OpenAI API error: {str(e)}"}, status=500)
         except Exception as e:
             return Response({"error": f"Internal server error: {str(e)}"}, status=500)
-
 
 # View for the OPENAI agent 
 
