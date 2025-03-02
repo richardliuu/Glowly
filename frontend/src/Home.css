@@ -87,7 +87,7 @@ section {
 }
 
 .heroTitle {
-    font-size: 60px;
+    font-size: 100px;
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 15px;
@@ -99,7 +99,7 @@ section {
 }
 
 .heroSubtitle {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 500;
     margin-bottom: 30px;
 }

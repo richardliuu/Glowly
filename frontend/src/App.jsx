@@ -14,6 +14,7 @@ import Support from './components/Support'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoutes'
 import Chat from './components/Chat'
+import MapPage from './components/MapPage'
 
 function App() {
   const location = useLocation()
@@ -42,6 +43,7 @@ function App() {
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/support" element={<Support />} />
         <Route path="/chat/:roomName" element={<Chat />} />
+        <Route path="map" element={<MapPage />}/>
       </Route>
     </Routes>
   )

@@ -6,6 +6,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import ArticleIcon from "@mui/icons-material/Article";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
+import MapIcon from "@mui/icons-material/Map"; // Add the Map icon
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import AxiosInstance from "./AxiosInstance";
 import Search from "./Search";  // Importing the Search component
@@ -46,7 +47,8 @@ export default function Navbar({ content }) {
   const navItems = [
     { text: "Home", path: "/home", icon: <HomeIcon /> },
     { text: "Posts", path: "/posts", icon: <ArticleIcon /> },
-    { text: "Support", path: "/support", icon: <HelpIcon /> }
+    { text: "Support", path: "/support", icon: <HelpIcon /> },
+    { text: "Map", path: "/map", icon: <MapIcon /> } // Add Map to navItems
   ];
 
   return (
