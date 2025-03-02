@@ -1,7 +1,7 @@
 import {Outlet, Navigate} from 'react-router-dom'
 
 const ProtectedRoute = () => {
-    const token = localStorage.getItem('Token')
+    const token = localStorage.getItem('authToken')
 
     return(
 

@@ -27,6 +27,9 @@ const Login = () =>{
         .then((response) => {
             console.log(response)
             localStorage.setItem('authToken', response.data.token)
+
+            AxiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+            
             navigate(`/home`)
         })
         .catch((error) => {

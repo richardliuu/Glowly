@@ -1,28 +1,34 @@
 import '../Home.css';
-import AxiosInstance from './AxiosInstance';
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 
 const Home = () => {
-    const [myData, setMyData] = useState();
-    const [loading, setLoading] = useState(true);
+    const [isLightOn, setIsLightOn] = useState(true);
 
-    const GetData = () => {
-        AxiosInstance.get(`users/`).then((res) => {
-            setMyData(res.data);
-            console.log(res.data);
-            setLoading(false);
-        });
+    const toggleLight = () => {
+        setIsLightOn(!isLightOn);
     };
 
-    useEffect(() => {
-        GetData();
-    }, []);
-
     return (
-        <div className="heroContainer">
-            <h1 className="heroTitle">Glowly</h1>
-            <p className="heroSubtitle">Connecting People, Inspiring Innovation</p>
-            <button className="ctaButton">Get Started</button>
+        <div className={`heroContainer ${isLightOn ? 'lightOn' : 'lightOff'}`}>
+            <div className="content">
+                <h1 className="heroTitle">Glowly</h1>
+                <p className="heroSubtitle">Connecting People, Inspiring Innovation</p>
+            </div>
+            <div className="lightbulb-container" onClick={toggleLight}>
+                {isLightOn ? (
+                    <img 
+                        src="/images/lightbulbon.png" 
+                        alt="Lightbulb On" 
+                        className="lightbulb on"
+                    />
+                ) : (
+                    <img 
+                        src="/images/lightbulboff.png" 
+                        alt="Lightbulb Off" 
+                        className="lightbulb off"
+                    />
+                )}
+            </div>
         </div>
     );
 };
