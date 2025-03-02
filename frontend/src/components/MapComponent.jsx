@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '100%',
-  height: '400px',
+  width: '1400px',
+  height: '450px',
 };
 
 const center = {
-  lat: 40.748817,
-  lng: -73.985428,
+  lat: 43.6406,
+  lng: -79.3757,
 };
 
 const MapComponent = () => {

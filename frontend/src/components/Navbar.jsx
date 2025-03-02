@@ -46,7 +46,6 @@ export default function Navbar({ content }) {
 
   const navItems = [
     { text: "Home", path: "/home", icon: <HomeIcon /> },
-    { text: "About", path: "/about", icon: <InfoIcon /> },
     { text: "Posts", path: "/posts", icon: <ArticleIcon /> },
     { text: "Support", path: "/support", icon: <HelpIcon /> },
     { text: "Map", path: "/map", icon: <MapIcon /> } // Add Map to navItems
@@ -57,7 +56,7 @@ export default function Navbar({ content }) {
       <AppBar position="fixed">
         <Toolbar className="navbar-toolbar">
           <Typography variant="h6" className="navbar-title">
-            My App
+            GLOWLY
           </Typography>
 
           {/* Add Search Bar */}
