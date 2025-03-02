@@ -47,7 +47,6 @@ export default function Navbar({ content }) {
   const navItems = [
     { text: "Home", path: "/home", icon: <HomeIcon /> },
     { text: "Posts", path: "/posts", icon: <ArticleIcon /> },
-    { text: "Support", path: "/support", icon: <HelpIcon /> },
     { text: "Map", path: "/map", icon: <MapIcon /> } // Add Map to navItems
   ];
 
