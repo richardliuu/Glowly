@@ -1,4 +1,4 @@
-/* Reset any default margins and ensure full-screen */
+/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,73 +6,112 @@
 }
 
 html, body {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden; /* Prevents scrolling */
+    width: 100%;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
 }
 
-/* Full-screen background with transition */
-.heroContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: background-color 0.5s ease;
+/* Page wrapper now allows scrolling */
+.pageWrapper {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Light states */
+/* Light/Dark theme states */
 .lightOn {
     background-color: #f5f5f5;
-    color: #000000;
+    color: #333;
 }
 
 .lightOff {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #121212;
+    color: #f5f5f5;
 }
 
-/* Content container */
-.content {
+/* Common section styles */
+section {
+    padding: 80px 10%;
+    width: 1500px;
+}
+
+.sectionTitle {
+    font-size: 36px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Button styles */
+.ctaButton {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #ffd500, #ff9900);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+    background: linear-gradient(90deg, #c2a203, #b96f01);
+    transform: translateY(-2px);
+}
+
+.ctaButton.large {
+    padding: 16px 32px;
+    font-size: 18px;
+}
+
+.ctaButton.small {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+
+.heroSection {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 10%;
-    z-index: 10;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 80%;
+    position: relative;
+    padding-top: 1700px; /* Account for header height */
 }
 
-/* Title */
+.heroContent {
+    max-width: 600px;
+    width: 600px;
+}
+
 .heroTitle {
     font-size: 60px;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 15px;
-    transition: color 0.5s ease;
+    background: linear-gradient(90deg, #ffd500, #ff9900);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
 }
 
-/* Subtitle */
 .heroSubtitle {
     font-size: 24px;
     font-weight: 500;
-    opacity: 0.8;
-    transition: color 0.5s ease;
+    margin-bottom: 30px;
 }
 
-/* Lightbulb container and image */
 .lightbulb-container {
-    margin-right: 10%;
     cursor: pointer;
-    z-index: 5;
-    
 }
 
 .lightbulb {
     transition: all 0.3s ease;
-    width: 300px;  /* Set the width to the desired size */
-    height: 300px; /* Set the height to the desired size */
+    width: 300px;
+    height: 300px;
 }
 
 .lightbulb.on {
@@ -81,5 +120,187 @@ html, body {
 
 .lightbulb.off {
     filter: brightness(0.8);
-    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.8));
+}
+
+/* Features Section */
+.featuresSection {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.lightOff .featuresSection {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.featureCard {
+    padding: 30px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.lightOff .featureCard {
+    background-color: #323232;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.featureCard:hover {
+    transform: translateY(-10px);
+}
+
+.featureIcon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.featureCard h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* About Section */
+.aboutSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 60px;
+}
+
+.aboutContent {
+    flex: 1;
+}
+
+.aboutSection .sectionTitle {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.aboutContent p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.aboutImage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    height: 350px;
+}
+
+/* Testimonials Section */
+.testimonialsSection {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.lightOff .testimonialsSection {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.testimonialCards {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.testimonialCard {
+    flex: 1;
+    min-width: 280px;
+    max-width: 500px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.lightOff .testimonialCard {
+    background-color: #1e1e1e;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.testimonialText {
+    font-style: italic;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.testimonialAuthor {
+    font-weight: 600;
+    text-align: right;
+}
+
+
+/* Footer */
+.footer {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 60px 10% 20px;
+}
+
+.lightOff .footer {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.footerContent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 40px;
+}
+
+.footerLogo h3 {
+    font-size: 28px;
+    background: linear-gradient(90deg, #ffd500, #ff9900);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.footerLinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.footerLinkColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.footerLinkColumn h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.footerLinkColumn a {
+    margin-bottom: 10px;
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footerLinkColumn a:hover {
+    opacity: 1;
+}
+
+.footerBottom {
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.lightOff .footerBottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html {
+    scroll-padding-top: 80px; 
 }
