@@ -109,8 +109,8 @@ const Home = () => {
                         </div>
                         <div className="footerLinkColumn">
                             <h4>Legal</h4>
-                            <a href="#">Privacy Policy</a>
-                            <a href="#">Terms of Service</a>
+                            <a href="/about">Privacy Policy</a>
+                            <a href="/about">Terms of Service</a>
                         </div>
                     </div>
                 </div>

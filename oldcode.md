@@ -1,0 +1,50 @@
+# Previously index.html 
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Glowly</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <script>
+        const WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL_HERE";
+        const BOT_NAME = "Website Tracker";  
+        const BOT_AVATAR = "https://your-image-url.com/avatar.png";
+    </script>
+
+ Navigation Bar 
+  <nav>
+        <a href="index.html">
+            <img src="images/glowly.png" alt="Logo" class="logo">
+        </a>
+      <a href="index.html"></a>
+      <a href="posts.html">Posts</a>
+      <a href="support.html">Support</a>
+  </nav>
+
+   Hero Section 
+  <header class="hero">
+      <div class="hero-content">
+          <h1>Welcome to Glowly!</h1>
+          <p>CONNECTING LIKE MINDED PEOPLE</p>
+          <a href="posts.html" class="cta-button">Explore Posts</a>
+      </div>
+  </header>
+
+   Main Content Section
+  <section class="main-content">
+      <div class="container">
+          <h2>Why Glowly?</h2>
+          <p>We provide the best search tools, ensuring a unique user experience.</p>
+      </div>
+  </section>
+
+
+</body>
+</html> 
+-->
