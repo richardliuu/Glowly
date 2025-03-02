@@ -1,33 +1,51 @@
 import React, { useEffect, useState } from "react";
 import AxiosInstance from "./AxiosInstance";
-import { Box, Button, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+// Import the CSS file for styling
+import "../Posts.css";
 
+/**
+ * Posts Component
+ * 
+ * Displays a collection of posts with like and delete functionality
+ * Users can also create new posts through this component
+ */
 const Posts = () => {
+  // State to store all posts from the API
   const [posts, setPosts] = useState([]);
+  // State to track loading status
   const [loading, setLoading] = useState(true);
+  // Hook for programmatic navigation
   const navigate = useNavigate();
 
+  /**
+   * Fetches all posts from the backend API
+   * Uses Knox token authentication from localStorage
+   */
   const fetchPosts = async () => {
     try {
       const response = await AxiosInstance.get("posts/", {
         headers: {
-          Authorization: `Token ${localStorage.getItem("authToken")}`, // Add Knox token
+          Authorization: `Token ${localStorage.getItem("authToken")}`,
         }
       });
-      console.log(response);  // Log the full response for debugging
-      setPosts(response.data); // Access data only if the structure is correct
+      setPosts(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
-      setLoading(false);  // Stop loading state in case of error
+      setLoading(false);
     }
   };
-  
+
+  // Run fetchPosts when component mounts
   useEffect(() => {
     fetchPosts();
   }, []);
 
+  /**
+   * Handles liking/unliking a post
+   * @param {number} postId - The ID of the post to like/unlike
+   */
   const handleLike = async (postId) => {
     try {
       await AxiosInstance.post(`posts/${postId}/like/`);
@@ -37,9 +55,14 @@ const Posts = () => {
     }
   };
 
+  /**
+   * Handles deleting a post
+   * @param {number} postId - The ID of the post to delete
+   */
   const handleDelete = async (postId) => {
     try {
       await AxiosInstance.delete(`posts/${postId}/`);
+      // Update posts state by filtering out the deleted post
       setPosts(posts.filter((post) => post.id !== postId));
     } catch (error) {
       console.error("Error deleting post:", error);
@@ -47,41 +70,80 @@ const Posts = () => {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Button variant="contained" color="primary" onClick={() => navigate("/create-post")}>
-        Create Post
-      </Button>
+    <div className="posts-container">
+      {/* Fixed header section that stays at the top */}
+      <div className="posts-header">
+        <h1>Posts</h1>
+        <button 
+          className="create-button"
+          onClick={() => navigate("/create-post")}
+          aria-label="Create new post"
+        >
+          Create Post
+        </button>
+      </div>
 
-      {loading ? (
-        <Typography>Loading posts...</Typography>
-      ) : (
-        posts.map((post) => (
-          <Card key={post.id} sx={{ my: 2 }}>
-            {post.image && (
-              <CardMedia component="img" height="140" image={post.image} alt="Post Image" />
-            )}
-            <CardContent>
-              <Typography variant="h5">{post.title}</Typography>
-              <Typography variant="body1">{post.content}</Typography>
-              <Typography variant="caption">Likes: {post.likes.length}</Typography>
-              <Box sx={{ mt: 2 }}>
-                <Button variant="contained" onClick={() => handleLike(post.id)}>
-                  {post.likes.includes(localStorage.getItem("user_id")) ? "Unlike" : "Like"}
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  onClick={() => handleDelete(post.id)}
-                  sx={{ ml: 2 }}
-                >
-                  Delete
-                </Button>
-              </Box>
-            </CardContent>
-          </Card>
-        ))
-      )}
-    </Box>
+      {/* Main content area that scrolls */}
+      <div className="posts-content">
+        {loading ? (
+          // Show loading spinner when data is being fetched
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Loading posts...</p>
+          </div>
+        ) : posts.length === 0 ? (
+          // Show message when no posts exist
+          <div className="no-posts">
+            <p>No posts yet. Be the first to create one!</p>
+          </div>
+        ) : (
+          // Grid layout for displaying multiple posts
+          <div className="posts-grid">
+            {posts.map((post) => (
+              <div className="post-card" key={post.id}>
+                {/* Conditional rendering for post image */}
+                {post.image && (
+                  <div 
+                    className="post-image" 
+                    style={{ backgroundImage: `url(${post.image})` }}
+                    title={post.title}
+                  ></div>
+                )}
+                <div className="post-content">
+                  <h2>{post.title}</h2>
+                  <p>{post.content}</p>
+                  <div className="post-meta">
+                    <span className="likes-count">
+                      {/* Heart icon for likes */}
+                      <span className="heart-icon">♥</span>
+                      {post.likes.length} {post.likes.length === 1 ? "like" : "likes"}
+                    </span>
+                  </div>
+                  <div className="post-actions">
+                    {/* Heart button with dynamic styling based on like status */}
+                    <button 
+                      className={`heart-button ${post.likes.includes(localStorage.getItem("user_id")) ? "liked" : ""}`}
+                      onClick={() => handleLike(post.id)}
+                      aria-label={post.likes.includes(localStorage.getItem("user_id")) ? "Unlike post" : "Like post"}
+                    >
+                      ♥
+                    </button>
+                    {/* Delete button */}
+                    <button 
+                      className="delete-button"
+                      onClick={() => handleDelete(post.id)}
+                      aria-label="Delete post"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

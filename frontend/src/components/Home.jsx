@@ -87,8 +87,8 @@ const Home = () => {
                         <p className="testimonialAuthor">— Samar K. , Artist</p>
                     </div>
                     <div className="testimonialCard">
-                        <p className="testimonialText">"Implementation was smooth and the support team was exceptional. We saw immediate improvements in our workflow efficiency."</p>
-                        <p className="testimonialAuthor">— Michael T., CTO</p>
+                        <p className="testimonialText">"“This app has helped me become so much more social able, and has help my anxiety subside. 10/10 would recommend”"</p>
+                        <p className="testimonialAuthor">— Queenie Y. , DECA competitor</p>
                     </div>
                 </div>
             </section>
@@ -105,7 +105,7 @@ const Home = () => {
                         </div>
                         <div className="footerLinkColumn">
                             <h4>Resources</h4>
-                            <a href="#">Support</a>
+                            <a href="/support">Support</a>
                         </div>
                         <div className="footerLinkColumn">
                             <h4>Legal</h4>
@@ -115,7 +115,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="footerBottom">
-                    <p>&copy; 2025 Glowly, Inc. All rights reserved.</p>
+                    <p>&copy; 2025 Glowly. All rights reserved.</p>
                 </div>
             </footer>
         </div>
