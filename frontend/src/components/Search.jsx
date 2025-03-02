@@ -2,17 +2,20 @@ import { useState } from "react";
 
 const Search = () => {
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Predefined links for specific search terms
   const RESOURCE_MAPPING = {
-    depression: "https://www.mhanational.org/depression",
-    Depression: "https://www.mhanational.org/depression",
-    anxiety: "https://adaa.org/",
-    Anxiety: "https://adaa.org/",
-    addiction: "https://www.samhsa.gov/find-help/national-helpline",
-    "suicidal thoughts": "https://988lifeline.org/",
-    stress: "https://www.apa.org/topics/stress",
-    "bipolar disorder": "https://www.nimh.nih.gov/health/topics/bipolar-disorder",
+    depression: "https://www.mhanational.org/depression", 
+    Depression: "https://www.mhanational.org/depression", 
+    anxiety: "https://adaa.org/", 
+    Anxiety: "https://adaa.org/", 
+    addiction: "https://www.samhsa.gov/find-help/national-helpline", "suicidal thoughts": "https://988lifeline.org/", 
+    Addiction: "https://www.samhsa.gov/find-help/national-helpline", "suicidal thoughts": "https://988lifeline.org/", 
+    stress: "https://www.apa.org/topics/stress", 
+    bipolar_disorder: "https://www.nimh.nih.gov/health/topics/bipolar-disorder", 
+    Stress: "https://www.apa.org/topics/stress", "bipolar disorder": "https://www.nimh.nih.gov/health/topics/bipolar-disorder", ptsd: "https://www.ptsd.va.gov/", Ptsd: "https://www.ptsd.va.gov/", PTSD: "https://www.ptsd.va.gov/", PtSD: "https://www.ptsd.va.gov/", loneliness: "https://www.campaigntoendloneliness.org/", Loneliness: "https://www.campaigntoendloneliness.org/", trauma: "https://www.helpguide.org/articles/ptsd-trauma/coping-with-emotional-and-psychological-trauma.htm", 
+    Trauma: "https://www.helpguide.org/articles/ptsd-trauma/coping-with-emotional-and-psychological-trauma.htm",
   };
 
   const handleSearch = () => {
@@ -20,10 +23,13 @@ const Search = () => {
 
     const lowerCaseQuery = query.toLowerCase();
 
-    // Check if any keyword is in the query
+
     for (const keyword in RESOURCE_MAPPING) {
       if (lowerCaseQuery.includes(keyword)) {
-        window.location.href = RESOURCE_MAPPING[keyword]; // Redirect to the matched URL
+        setLoading(true);
+        setTimeout(() => {
+          window.location.href = RESOURCE_MAPPING[keyword]
+        }, 3000);
         return;
       }
     }
@@ -44,7 +50,7 @@ const Search = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Search mental health resources..."
+        placeholder="Ask ChatGPT about mental health..."
         style={{ padding: "10px", width: "50%", borderRadius: "5px", border: "1px solid #ccc" }}
       />
       <button
@@ -53,6 +59,12 @@ const Search = () => {
       >
         Search
       </button>
+
+      {loading && (
+        <p style={{ marginTop: "20px", fontSize: "18px", fontStyle: "italic" }}>
+          Our bot is analyzing your request
+        </p>
+      )}
     </div>
   );
 };
