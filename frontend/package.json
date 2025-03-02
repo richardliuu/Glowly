@@ -15,6 +15,7 @@
     "@hookform/resolvers": "^4.1.2",
     "@mui/icons-material": "^6.4.6",
     "@mui/material": "^6.4.6",
+    "@react-google-maps/api": "^2.20.6",
     "axios": "^1.7.9",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^4.0.0",
